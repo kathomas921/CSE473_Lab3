@@ -284,6 +284,42 @@ public class DhtServer {
 	 *	Clear all the existing cache, map and rteTbl information
 	 */
 	public static void leave() {
+
+		//LEAVE PACKET TO SUCC
+		Packet leavePacket = new Packet();
+		leavePacket.type = "leave";
+		leavePacket.tag = ++sendTag;
+		leavePacket.send(sock, succInfo, debug);
+
+		//Check if stopFlag is true
+		// Packet stopPacket = new Packet();
+		// boolean b;
+		// while (b == true) {
+		// 	InetSocketAddress replyAdr = replyPacket.receive(sock, debug);
+		// 	if (replyAdr.equals(predAdr) && (replyPacket.tag == joinPacket.tag)){
+		// 		b = false;
+		// 	}
+		}
+		//UPDATE PACKET TO SUCC
+		Packet updatePacketSucc = new Packet();
+		updatePacketSucc.type = "update";
+		updatePacketSucc.tag = ++sendTag;
+		updatePacketSucc.predInfo = predInfo;
+
+		//UPDATE PACKET TO PRED
+		Packet updatePacketPred = new Packet();
+		leavePacket.type = "update";
+		leavePacket.tag = ++sendTag;
+		leavePacket.succInfo = succInfo;
+		int left = hashRange.left.intValue();
+		int right = hashRange.right.intValue();
+		leavePacket.hashRange = new Pair<Integer, Integer>(left, right);
+
+		//UPDATE PACKET TO SUCC
+		Packet updatePacketSucc = new Packet();
+		updatePacketSucc.type = "update";
+		updatePacketSucc.tag = ++sendTag;
+		updatePacketSucc.predInfo = predInfo;
 		// your code here
 
 	}
@@ -441,6 +477,8 @@ public class DhtServer {
 		//NOTIFY SUCCESSOR OF NEW PREDECESSOR
 		Packet updatePacket = new Packet();
 		updatePacket.predInfo = newPacketInfo;
+		updatePacket.type = "update";
+		transferPacket.tag = ++sendtag;
 		updatePacket.send(sock, succInfo, debug);
 
 		//UPDATE CURRENT SUCCESSOR INFO
@@ -632,7 +670,32 @@ public class DhtServer {
 	 *  print the string "rteTbl=" + rteTbl. (IMPORTANT)
 	 */
 	public static void addRoute(Pair<InetSocketAddress,Integer> newRoute){
-		// your code here
+		//check if already in route
+		for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
+			if (entry.equals(newRoute)){
+				return;
+			}
+		}
+		
+		//if table full, find first non SuccInfo entry and remove it
+		//Pair<InetSocketAddress, Integer> remove = null;
+		if (rteTble.size() == numRoutes) {
+			for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
+				if (!entry.equals(succInfo)) {
+					removeRoute(entry);
+					break;
+				}
+			}
+		}
+
+		//add new route to table
+		rteTble.add(newRoute);
+
+		//if debug on and routing table has changed (must so at this point)
+		//print out the routing table
+		if (debug) {
+			System.out.println("rteTbl=" + rteTbl);
+		}
 	}
 
 	/** Remove an entry from the route tabe.
@@ -645,7 +708,19 @@ public class DhtServer {
 	 *  print the string "rteTbl=" + rteTbl. (IMPORTANT)
 	 */
 	public static void removeRoute(Pair<InetSocketAddress,Integer> rmRoute){
-		// your code here
+		for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
+			if (entry.equals(rmRoute)){
+				rteTbl.remove(remove);
+
+				if (debug) {
+					System.out.println("rteTble=" + rteTble);
+				}
+				break;
+			}
+
+		}
+
+		return;
 	}
 
 
