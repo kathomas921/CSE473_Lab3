@@ -510,12 +510,48 @@ public class DhtServer {
 	 *  @param p is a put packet
 	 *  @param senderAdr is the the socket address of the sender
 	 *  
-	 *	your documentation here
+	 *	If the key hashes to the range of responsible values for this node,
+	 *  it puts the key/value pair into its map, adds its own information to
+	 *  senderInfo and sends the response packet to either the relayAdr or 
+	 *  the client.
+	 *  
+	 *  If it is not in the range the node is responsible for, it checks its 
+	 *  cache for the key. If the key exists it deletes the key/value pair. It
+	 *  then forwards the packet to the appropriate node.
 	 */
 	public static void handlePut(Packet p, InetSocketAddress senderAdr) {
-		//
-		// your code here
-		//
+		int hash = hashit(p.key);
+		int left = hashRange.left.intValue();
+		int right = hashRange.right.intValue();
+		if (left <= hash && hash <= right) {
+			// respond to request using map
+			if (p.relayAdr != null) {
+				replyAdr = p.relayAdr;
+				p.senderInfo = new 
+				    Pair<InetSocketAddress,Integer>(myAdr,left);
+			} else {
+				replyAdr = senderAdr;
+			}
+
+			if (p.val != null) {
+				map.put(p.key,p.val);	
+			} else {	
+				map.remove(p.key);
+			}
+
+			p.type = "success";
+			p.send(sock,replyAdr,debug);
+		} 
+		else if (cacheOn && cache.containsKey(p.key)) {
+			cache.remove(p.key);
+		}
+		else {
+			// forward around DHT
+			if (p.relayAdr == null) {
+				p.relayAdr = myAdr; p.clientAdr = senderAdr;
+			}
+			forward(p,hash);
+		}
 	}
 
 	/** Handle a transfer packet.
