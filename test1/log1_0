@@ -1,0 +1,63 @@
+ TEST PRINT STATEMENT
+/127.0.0.1:57479 received packet from /127.0.0.1:52717
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:99
+
+/127.0.0.1:57479 sending packet to /127.0.0.1:52717
+CSE473 DHTPv0.1
+type:success
+hashRange:1073741824:2147483647
+tag:1
+succInfo:127.0.0.1:57479:0
+predInfo:127.0.0.1:57479:0
+ttl:99
+
+/127.0.0.1:57479 sending packet to localhost/127.0.0.1:57479
+CSE473 DHTPv0.1
+type:update
+tag:2
+predInfo:127.0.0.1:52717:1073741824
+ttl:100
+
+added rteTbl=[(/127.0.0.1:52717,1073741824)]
+/127.0.0.1:57479 received packet from /127.0.0.1:57479
+CSE473 DHTPv0.1
+type:update
+tag:2
+predInfo:127.0.0.1:52717:1073741824
+ttl:99
+
+/127.0.0.1:57479 received packet from /127.0.0.1:62734
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:99
+
+/127.0.0.1:57479 sending packet to /127.0.0.1:62734
+CSE473 DHTPv0.1
+type:success
+hashRange:536870912:1073741823
+tag:1
+succInfo:127.0.0.1:52717:1073741824
+predInfo:127.0.0.1:57479:0
+ttl:99
+
+/127.0.0.1:57479 sending packet to /127.0.0.1:52717
+CSE473 DHTPv0.1
+type:update
+tag:3
+predInfo:127.0.0.1:62734:536870912
+ttl:100
+
+before remove rteTbl=[(/127.0.0.1:52717,1073741824)]
+removed rteTbl=[]
+added rteTbl=[(/127.0.0.1:62734,536870912)]
+/127.0.0.1:57479 received packet from /127.0.0.1:52717
+CSE473 DHTPv0.1
+type:update
+tag:2
+predInfo:127.0.0.1:53865:1610612736
+ttl:99
+

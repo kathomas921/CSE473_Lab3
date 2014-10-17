@@ -134,6 +134,10 @@ public class DhtServer {
 	 */
 	public static void main(String[] args) {
 		// process command-line arguments
+
+		System.out.println(" TEST PRINT STATEMENT");
+
+
 		if (args.length < 3) {
 			System.err.println("usage: DhtServer myIp numRoutes " +
 					   "cfgFile [debug] [ predFile ] ");
@@ -434,6 +438,11 @@ public class DhtServer {
 
 		//adds successor to routing table
 		addRoute(succInfo);
+		System.out.println("size of routing table: " + rteTbl.size());
+		System.out.println("routing table of new node");
+		for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
+			System.out.println(entry.left.toString());
+		}
 	}
 	
 	/** Handle a join packet from a prospective DHT node.
@@ -482,12 +491,12 @@ public class DhtServer {
 		//TRANSFER HASHES
 		Packet transferPacket = new Packet();
 		transferPacket.type = "transfer";
-		transferPacket.tag = ++sendTag;
 		Iterator it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry entry = (Map.Entry) it.next();
 			String key = (String) entry.getKey();
 			if (hashit(key) > newRight) {
+				transferPacket.tag = ++sendTag;
 				transferPacket.key = key;
 				transferPacket.val = (String) entry.getValue();
 				transferPacket.send(sock, succAdr, debug);
@@ -525,6 +534,7 @@ public class DhtServer {
 	 *  Otherwise, it forwards the request to the proper node.
 	 */
 	public static void handleGet(Packet p, InetSocketAddress senderAdr) {
+
 		InetSocketAddress replyAdr;
 		int hash = hashit(p.key);
 		int left = hashRange.left.intValue();
@@ -560,6 +570,8 @@ public class DhtServer {
 		}
 		else {
 			// forward around DHT
+			System.out.println("@Debug handleGet - needs to be forwarded to another node");
+
 			if (p.relayAdr == null) {
 				p.relayAdr = myAdr; p.clientAdr = senderAdr;
 			}
@@ -608,6 +620,7 @@ public class DhtServer {
 			cache.remove(p.key);
 		}
 		else {
+			System.out.println("@Debug handlePut - needs to be forwarded to another node");
 			// forward around DHT
 			if (p.relayAdr == null) {
 				p.relayAdr = myAdr; p.clientAdr = senderAdr;
@@ -703,7 +716,9 @@ public class DhtServer {
 		
 		//if table full, find first non SuccInfo entry and remove it
 		//Pair<InetSocketAddress, Integer> remove = null;
-		if (rteTbl.size() == numRoutes) {
+		if (rteTbl.size() == numRoutes && numRoutes > 0) {
+			//System.out.println("addRoute: rteTbl size: " + rteTbl.size());
+			//System.out.println("addRoute: numRoutes: " + numRoutes);
 			for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
 				if (!entry.equals(succInfo)) {
 					removeRoute(entry);
@@ -718,7 +733,7 @@ public class DhtServer {
 		//if debug on and routing table has changed (must so at this point)
 		//print out the routing table
 		if (debug) {
-			System.out.println("rteTbl=" + rteTbl);
+			System.out.println("added rteTbl=" + rteTbl);
 		}
 	}
 
@@ -734,9 +749,10 @@ public class DhtServer {
 	public static void removeRoute(Pair<InetSocketAddress,Integer> rmRoute){
 		for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
 			if (entry.equals(rmRoute)){
+				System.out.println("before remove rteTbl=" + rteTbl);
 				rteTbl.remove(entry);
 				if (debug) {
-					System.out.println("rteTbl=" + rteTbl);
+					System.out.println("removed rteTbl=" + rteTbl);
 				}
 				break;
 			}
@@ -769,6 +785,9 @@ public class DhtServer {
 				smallestDiff = hashDiff;
 				
 			}
+			System.out.println("@Debug Hash is " + hash);
+			System.out.println("@Debug Smallest difference is " + smallestDiff);
+			System.out.println("@Debug Node Address is " + node.left.toString());
 
 		}
 		p.send(sock, closestNode.left, debug);

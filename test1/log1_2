@@ -1,0 +1,55 @@
+ TEST PRINT STATEMENT
+About to send join packet: join 100
+/127.0.0.1:52717 sending packet to /127.0.0.1:57479
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:100
+
+Sent join packet to address /127.0.0.1:57479
+/127.0.0.1:52717 received packet from /127.0.0.1:57479
+CSE473 DHTPv0.1
+type:success
+hashRange:1073741824:2147483647
+tag:1
+succInfo:127.0.0.1:57479:0
+predInfo:127.0.0.1:57479:0
+ttl:98
+
+Received a packet from the following address /127.0.0.1:57479
+added rteTbl=[(/127.0.0.1:57479,0)]
+size of routing table: 1
+routing table of new node
+/127.0.0.1:57479
+/127.0.0.1:52717 received packet from /127.0.0.1:57479
+CSE473 DHTPv0.1
+type:update
+tag:3
+predInfo:127.0.0.1:62734:536870912
+ttl:99
+
+/127.0.0.1:52717 received packet from /127.0.0.1:53865
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:99
+
+/127.0.0.1:52717 sending packet to /127.0.0.1:53865
+CSE473 DHTPv0.1
+type:success
+hashRange:1610612736:2147483647
+tag:1
+succInfo:127.0.0.1:57479:0
+predInfo:127.0.0.1:52717:1073741824
+ttl:99
+
+/127.0.0.1:52717 sending packet to /127.0.0.1:57479
+CSE473 DHTPv0.1
+type:update
+tag:2
+predInfo:127.0.0.1:53865:1610612736
+ttl:100
+
+before remove rteTbl=[(/127.0.0.1:57479,0)]
+removed rteTbl=[]
+added rteTbl=[(/127.0.0.1:53865,1610612736)]

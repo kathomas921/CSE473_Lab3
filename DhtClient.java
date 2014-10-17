@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 
 
@@ -41,9 +42,6 @@ public class DhtClient{
 		}
 
 		//Note: Don't need else statement because it will exit in the if statement
-
-		//Process IP Address from first argument
-		InetSocketAddress adr = new InetSocketAddress(args[IP_INDEX], EPHEMERAL_PORT);
 		
 		//Process Server info from second argument
 		InetSocketAddress destAdr;
@@ -51,10 +49,15 @@ public class DhtClient{
 		
 		BufferedReader inBuf;
 		try {
+			//Process IP Address from first argument
+			//InetSocketAddress myIp = new InetSocketAddress(args[IP_INDEX], EPHEMERAL_PORT);
+			InetAddress myIp = InetAddress.getByName(args[IP_INDEX]);
+
 			inBuf = new BufferedReader(new InputStreamReader(new FileInputStream("cfg"),"US-ASCII"));
 			String[] info = inBuf.readLine().split(" ");
 			InetAddress serverAdr = InetAddress.getByName(info[CONFIG_IP]);
 			int serverPort = Integer.parseInt(info[CONFIG_PORT]);
+			System.out.println("server port: " + serverPort);
 			destAdr = new InetSocketAddress(serverAdr, serverPort);
 			
 			//Process Packet info from third, fourth, fifth arguments, and send them along a socket
@@ -67,17 +70,21 @@ public class DhtClient{
 				outPkt.val = args[VALUE_INDEX];
 			}
 			outPkt.tag = ++sendTag;
-			sock = new DatagramSocket(serverPort, serverAdr);
+			sock = new DatagramSocket(0, myIp);
 			outPkt.send(sock, destAdr, DEBUG);
 			
 			//Receive packet from server //FIXME No need to use check() method here, right?
 			Packet inPkt = new Packet();
 			InetSocketAddress srcAdr = inPkt.receive(sock, DEBUG);
 			String reply = inPkt.toString();
-		} catch (NumberFormatException nfe) {
+		} catch (NumberFormatException e) {
 			System.err.println("Config file contains invalid port");
+			e.printStackTrace();
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
 			System.err.println("Config file not found");
+			e.printStackTrace();
+		} catch (UnknownHostException e){
+			System.err.println("Invalid or unknown host");
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.err.println("Config file is misformatted");

@@ -1,0 +1,10 @@
+put foo bar
+server port: 62490
+/127.0.0.1:53824 sending packet to /127.0.0.1:62490
+CSE473 DHTPv0.1
+type:put
+key:foo
+val:bar
+tag:1
+ttl:100
+
