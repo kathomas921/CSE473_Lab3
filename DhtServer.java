@@ -763,7 +763,7 @@ public class DhtServer {
 
 		for (Pair<InetSocketAddress,Integer> node : rteTbl) {
 			int hashDiff = hash - node.right;
-			if (hashDiff < 0) {
+			if (hashDiff < smallestNode) {
 				closestNode = node;
 				smallestDiff = hashDiff;
 				break;

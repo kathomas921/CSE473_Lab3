@@ -47,6 +47,8 @@ public class DhtClient{
 		
 		//Process Server info from second argument
 		InetSocketAddress destAdr;
+		DatagramSocket sock = null;
+		
 		BufferedReader inBuf;
 		try {
 			inBuf = new BufferedReader(new InputStreamReader(new FileInputStream("cfg"),"US-ASCII"));
@@ -65,12 +67,13 @@ public class DhtClient{
 				outPkt.val = args[VALUE_INDEX];
 			}
 			outPkt.tag = ++sendTag;
-			DatagramSocket sock = new DatagramSocket(serverPort, serverAdr);
+			sock = new DatagramSocket(serverPort, serverAdr);
 			outPkt.send(sock, destAdr, DEBUG);
 			
 			//Receive packet from server //FIXME No need to use check() method here, right?
 			Packet inPkt = new Packet();
 			InetSocketAddress srcAdr = inPkt.receive(sock, DEBUG);
+			String reply = inPkt.toString();
 		} catch (NumberFormatException nfe) {
 			System.err.println("Config file contains invalid port");
 		} catch (UnsupportedEncodingException | FileNotFoundException e) {
