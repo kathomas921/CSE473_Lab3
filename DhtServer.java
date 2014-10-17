@@ -759,16 +759,18 @@ public class DhtServer {
 	 */
 	public static void forward(Packet p, int hash) {
 		Pair<InetSocketAddress,Integer> closestNode = null;
-		int smallestDiff = 0;
+		int smallestDiff = Integer.MAX_VALUE;
 
 		for (Pair<InetSocketAddress,Integer> node : rteTbl) {
-			int hashDiff = hash - node.right;
-			if (hashDiff < smallestNode) {
+			int firstHash = node.right;
+			int hashDiff = hash - firstHash;
+			if (hashDiff > 0 && hashDiff < smallestDiff) {
 				closestNode = node;
 				smallestDiff = hashDiff;
-				break;
+				
 			}
 
 		}
+		p.send(sock, closestNode.left, debug);
 	}
 }
