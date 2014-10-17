@@ -56,13 +56,13 @@
  *  specifies a value field (omitting the value field causes the pair with the
  *  specified key to be removed).
  *  
- *  The packet type “failure” is used to indicate an error of some sort; in 
- *  this case, the “reason” field provides an explanation of the failure. 
- *  The “join” type is used by a server to join an existing DHT. In the same
- *  way, the “leave” type is used by the leaving server to circle around the 
- *  DHT asking other servers’ to delete it from their routing tables.  The 
- *  “transfer” type is used to transfer (key,value) pairs to a newly added 
- *  server. The “update” type is used to update the predecessor, successor, 
+ *  The packet type 'failure' is used to indicate an error of some sort; in 
+ *  this case, the 'reason' field provides an explanation of the failure. 
+ *  The 'join' type is used by a server to join an existing DHT. In the same
+ *  way, the 'leave' type is used by the leaving server to circle around the 
+ *  DHT asking other servers to delete it from their routing tables.  The 
+ *  'transfer' type is used to transfer (key,value) pairs to a newly added 
+ *  server. The 'update' type is used to update the predecessor, successor, 
  *  or hash range of another DHT server, usually when a join or leave even 
  *  happens. 
  *
@@ -76,14 +76,14 @@
  *              server to receive a request packet from the client; it is added
  *              to the packet by the first server before forwarding the packet.
  *  hashRange 	is a pair of integers separated by a colon, specifying a range
- *              of hash indices; it is included in the response to a “join” 
+ *              of hash indices; it is included in the response to a 'join'
  *              packet, to inform the new DHT server of the set of hash values
  *              it is responsible for; it is also included in the update packet
  *              to update the hash range a server is responsible for.
  *  succInfo  	is the IP address and port number of a server, followed by its
  *              first hash index; this information is included in the response
  *              to a join packet to inform the new DHT server about its 
- *              immediate successor; it’s also included in the update packet 
+ *              immediate successor; it is also included in the update packet 
  *              to change the immediate successor of a DHT server; an example 
  *              of the format is succInfo:123.45.6.7:5678:987654321.
  *  predInfo	is also the IP address and port number of a server, followed
@@ -107,6 +107,8 @@ import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
 public class DhtServer {
+	public static final int EXIT = 1;
+
 	private static int numRoutes;	// number of routes in routing table
 	private static boolean cacheOn;	// enables caching when true
 	private static boolean debug;	// enables debug messages when true
@@ -289,39 +291,51 @@ public class DhtServer {
 		Packet leavePacket = new Packet();
 		leavePacket.type = "leave";
 		leavePacket.tag = ++sendTag;
-		leavePacket.send(sock, succInfo, debug);
+		leavePacket.send(sock, succInfo.left, debug);
 
 		//Check if stopFlag is true
-		// Packet stopPacket = new Packet();
-		// boolean b;
-		// while (b == true) {
-		// 	InetSocketAddress replyAdr = replyPacket.receive(sock, debug);
-		// 	if (replyAdr.equals(predAdr) && (replyPacket.tag == joinPacket.tag)){
-		// 		b = false;
-		// 	}
+		Packet stopPacket = new Packet();
+		
+		while (true) {
+			InetSocketAddress replyAdr = stopPacket.receive(sock, debug);
+			if (stopFlag) {
+				break;
+			}
 		}
-		//UPDATE PACKET TO SUCC
-		Packet updatePacketSucc = new Packet();
-		updatePacketSucc.type = "update";
-		updatePacketSucc.tag = ++sendTag;
-		updatePacketSucc.predInfo = predInfo;
 
 		//UPDATE PACKET TO PRED
 		Packet updatePacketPred = new Packet();
-		leavePacket.type = "update";
-		leavePacket.tag = ++sendTag;
-		leavePacket.succInfo = succInfo;
+		updatePacketPred.type = "update";
+		updatePacketPred.tag = ++sendTag;
+		updatePacketPred.succInfo = succInfo;
 		int left = hashRange.left.intValue();
 		int right = hashRange.right.intValue();
-		leavePacket.hashRange = new Pair<Integer, Integer>(left, right);
+		updatePacketPred.hashRange = new Pair<Integer, Integer>(left, right);
+		updatePacketPred.send(sock, predInfo.left, debug);
 
 		//UPDATE PACKET TO SUCC
 		Packet updatePacketSucc = new Packet();
 		updatePacketSucc.type = "update";
 		updatePacketSucc.tag = ++sendTag;
 		updatePacketSucc.predInfo = predInfo;
-		// your code here
+		updatePacketSucc.send(sock, succInfo.left, debug);
 
+		
+		//TRANSFER KEY/VALUE PAIRS TO PRED
+		Packet transferPacket = new Packet();
+		transferPacket.type = "transfer";
+		transferPacket.tag = ++sendTag;
+
+		for (Map.Entry<String,String> entry : map.entrySet()) {
+			transferPacket.key = entry.getKey();
+			transferPacket.val = entry.getValue();
+			transferPacket.send(sock, predInfo.left, debug);
+		}
+
+		//CLEAR MAP, CACHE, AND RTETBL
+		map.clear();
+		cache.clear();
+		rteTbl.clear();
 	}
 	
 	/** Handle a update packet from a prospective DHT node.
@@ -381,22 +395,26 @@ public class DhtServer {
 		//send packet
 		Packet joinPacket = new Packet();
 		joinPacket.type = "join"; joinPacket.tag = ++sendTag;
+		System.out.println("About to send join packet: " + joinPacket.type + " " + joinPacket.ttl);
 		joinPacket.send(sock, predAdr, debug);
-	
+		System.out.println("Sent join packet to address " + predAdr);
+
+
 		//correctly identify reply packet
 		Packet replyPacket = new Packet();
-		boolean b;
-		while (b == true) {
+		
+		while (true) {
 			InetSocketAddress replyAdr = replyPacket.receive(sock, debug);
+			System.out.println("Received a packet from the following address " + replyAdr);
 			if (replyAdr.equals(predAdr) && (replyPacket.tag == joinPacket.tag)){
-				b = false;
+				break;
 			}
 		}
 		//check to make sure it's correctly formed
 		if (!replyPacket.check()) {
 			System.out.println("Error, server could not join DHT network: " 
 				+ replyPacket.reason);
-			System.exit(1);
+			System.exit(EXIT);
 		}
 
 		if (!replyPacket.type.equals("success") || 
@@ -406,7 +424,7 @@ public class DhtServer {
 				"Type must be 'success' and hashRange, succInfo, and predInfo " +
 				"must not be null. Packet received was: ");
 			System.err.println(replyPacket.toString());
-			System.exit(1);
+			System.exit(EXIT);
 		}
 
 		//
@@ -440,7 +458,11 @@ public class DhtServer {
 	 *  is Host A.
 	 */
 	public static void handleJoin(Packet p, InetSocketAddress succAdr) {
-		
+		//We actually don't need to check if type==join here because this
+		//method will only be called through handlePacket (which was provided
+		//below). For further confidence, the (partially) provided handleGet 
+		//method below this does not start off with a check.
+
 		//HASH INFO: divide hash range value in half and send top to new node
 		int left  = hashRange.left.intValue();
 		int right = hashRange.right.intValue();
@@ -449,11 +471,12 @@ public class DhtServer {
 		p.hashRange = new Pair<Integer, Integer>(newRight+1, right);
 
 		//PRED INFO (current node's pred stays the same)
-		p.predInfo  = new Pair<Integer, Integer>(myAdr, left);
+		p.predInfo  = new Pair<InetSocketAddress, Integer>(myAdr, left);
 
 		//SUCC INFO
 		p.succInfo = succInfo;
-
+	
+		p.type = "success";
 		p.send(sock, succAdr, debug);
 
 		//TRANSFER HASHES
@@ -462,11 +485,11 @@ public class DhtServer {
 		transferPacket.tag = ++sendTag;
 		Iterator it = map.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry entry = it.next();
-			String key = entry.getKey();
+			Map.Entry entry = (Map.Entry) it.next();
+			String key = (String) entry.getKey();
 			if (hashit(key) > newRight) {
 				transferPacket.key = key;
-				transferPacket.val = entry.getValue();
+				transferPacket.val = (String) entry.getValue();
 				transferPacket.send(sock, succAdr, debug);
 				it.remove();
 			}
@@ -476,10 +499,10 @@ public class DhtServer {
 
 		//NOTIFY SUCCESSOR OF NEW PREDECESSOR
 		Packet updatePacket = new Packet();
-		updatePacket.predInfo = newPacketInfo;
 		updatePacket.type = "update";
-		transferPacket.tag = ++sendtag;
-		updatePacket.send(sock, succInfo, debug);
+		updatePacket.tag = ++sendTag;
+		updatePacket.predInfo = newPacketInfo;
+		updatePacket.send(sock, succInfo.left, debug);
 
 		//UPDATE CURRENT SUCCESSOR INFO
 		succInfo = newPacketInfo;
@@ -561,6 +584,7 @@ public class DhtServer {
 		int hash = hashit(p.key);
 		int left = hashRange.left.intValue();
 		int right = hashRange.right.intValue();
+		InetSocketAddress replyAdr = null;
 		if (left <= hash && hash <= right) {
 			// respond to request using map
 			if (p.relayAdr != null) {
@@ -624,7 +648,7 @@ public class DhtServer {
 			cache.put(p.key,p.val);
 		}
 		//adds sender to routing table
-		addRoute(senderInfo);
+		addRoute(p.senderInfo);
 
 		//get rid of extraneous fields and send to client
 		InetSocketAddress clientAdr = p.clientAdr;
@@ -679,7 +703,7 @@ public class DhtServer {
 		
 		//if table full, find first non SuccInfo entry and remove it
 		//Pair<InetSocketAddress, Integer> remove = null;
-		if (rteTble.size() == numRoutes) {
+		if (rteTbl.size() == numRoutes) {
 			for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
 				if (!entry.equals(succInfo)) {
 					removeRoute(entry);
@@ -689,7 +713,7 @@ public class DhtServer {
 		}
 
 		//add new route to table
-		rteTble.add(newRoute);
+		rteTbl.add(newRoute);
 
 		//if debug on and routing table has changed (must so at this point)
 		//print out the routing table
@@ -710,16 +734,13 @@ public class DhtServer {
 	public static void removeRoute(Pair<InetSocketAddress,Integer> rmRoute){
 		for (Pair<InetSocketAddress, Integer> entry : rteTbl) {
 			if (entry.equals(rmRoute)){
-				rteTbl.remove(remove);
-
+				rteTbl.remove(entry);
 				if (debug) {
-					System.out.println("rteTble=" + rteTble);
+					System.out.println("rteTbl=" + rteTbl);
 				}
 				break;
 			}
-
 		}
-
 		return;
 	}
 
@@ -737,6 +758,17 @@ public class DhtServer {
 	 *  Once a server is selected, p is sent to that server.
 	 */
 	public static void forward(Packet p, int hash) {
-		// your code here
+		Pair<InetSocketAddress,Integer> closestNode = null;
+		int smallestDiff = 0;
+
+		for (Pair<InetSocketAddress,Integer> node : rteTbl) {
+			int hashDiff = hash - node.right;
+			if (hashDiff < 0) {
+				closestNode = node;
+				smallestDiff = hashDiff;
+				break;
+			}
+
+		}
 	}
 }
