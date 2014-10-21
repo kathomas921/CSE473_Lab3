@@ -55,7 +55,7 @@ public class Packet {
 	public boolean unpack(byte[] buf, int bufLen) {
 		// convert buf to a string
 		String s; 
-		try { s = new String(buf,0,bufLen,"US-ASCII"); //FIXME May need to use specific accessor methods
+		try { s = new String(buf,0,bufLen,"US-ASCII");
 		} catch(Exception e) { return false; }
 
 		// divide into lines and check the first line
@@ -91,47 +91,6 @@ public class Packet {
 			//
 			// add code for missing cases
 			//
-			else if (left.equals("key")) {
-				key = right;
-			} else if (left.equals("val")) {
-				val = right;
-			} else if (left.equals("reason")) {
-				reason = right;
-			} else if (left.equals("tag")){
-				tag = Integer.parseInt(right);
-			} else if (left.equals("relayAdr")) {
-				chunks = right.split(":");
-				if (chunks.length != 2) return false;
-				relayAdr = new InetSocketAddress(chunks[0],
-						Integer.parseInt(chunks[1]));
-			} else if (left.equals("hashRange")) {
-				chunks = right.split(":");
-				hashRange = new Pair<Integer,Integer>(
-					Integer.parseInt(chunks[0]),
-					Integer.parseInt(chunks[1]));
-			} else if (left.equals("predInfo")) {
-				chunks = right.split(":");
-				if (chunks.length != 3) return false;
-				String ip = chunks[0];
-				int port = Integer.parseInt(chunks[1]);
-				int hash = Integer.parseInt(chunks[2]);
-				predInfo = new
-					Pair<InetSocketAddress,Integer>(
-					new InetSocketAddress(ip,port),hash);
-			} else if (left.equals("senderInfo")) {
-				chunks = right.split(":");
-				if (chunks.length != 3) return false;
-				String ip = chunks[0];
-				int port = Integer.parseInt(chunks[1]);
-				int hash = Integer.parseInt(chunks[2]);
-				senderInfo = new
-					Pair<InetSocketAddress,Integer>(
-					new InetSocketAddress(ip,port),hash);
-			}
-
-
-
-
 			else {
 				// ignore lines that don't match defined field
 			}
@@ -191,35 +150,6 @@ public class Packet {
 		//
 		// add code for missing cases
 		//
-		if (val != null) {
-			s.append("val:"); s.append(val); s.append("\n");
-		}
-		if (reason != null) {
-			s.append("reason:"); s.append(reason); s.append("\n");
-		}
-		if (clientAdr != null) {
-			s.append("clientAdr:");
-			s.append(clientAdr.getAddress().getHostAddress());
-			s.append(":"); s.append(clientAdr.getPort());
-			s.append("\n");
-		}
-		if (tag != -1) {
-			s.append("tag:"); s.append(tag); s.append("\n");
-		}
-		if (succInfo != null) {
-			s.append("succInfo:");
-			s.append(succInfo.left.getAddress().getHostAddress());
-			s.append(":"); s.append(succInfo.left.getPort());
-			s.append(":"); s.append(succInfo.right);
-			s.append("\n");
-		}
-		if (predInfo != null) {
-			s.append("predInfo:");
-			s.append(predInfo.left.getAddress().getHostAddress());
-			s.append(":"); s.append(predInfo.left.getPort());
-			s.append(":"); s.append(predInfo.right);
-			s.append("\n");
-		}
 		if (ttl != -1) {
 			s.append("ttl:"); s.append(ttl); s.append("\n");
 		}
