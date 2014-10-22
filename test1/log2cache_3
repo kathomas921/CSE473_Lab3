@@ -1,0 +1,188 @@
+/127.0.0.1:53264 sending packet to /127.0.0.1:53262
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:100
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53262
+CSE473 DHTPv0.1
+type:success
+tag:1
+hashRange:1610612736:2147483647
+succInfo:127.0.0.1:53261:0
+predInfo:127.0.0.1:53262:1073741824
+ttl:98
+
+rteTble=[(/127.0.0.1:53261,0)]
+/127.0.0.1:53264 received packet from /127.0.0.1:53267
+CSE473 DHTPv0.1
+type:put
+key:junk
+val:mail
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53261
+CSE473 DHTPv0.1
+type:put
+key:junk
+val:mail
+clientAdr:127.0.0.1:53267
+relayAdr:127.0.0.1:53264
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53263
+CSE473 DHTPv0.1
+type:success
+key:junk
+val:mail
+clientAdr:127.0.0.1:53267
+relayAdr:127.0.0.1:53264
+tag:12345
+senderInfo:127.0.0.1:53263:536870912
+ttl:96
+
+rteTble=[(/127.0.0.1:53261,0), (/127.0.0.1:53263,536870912)]
+/127.0.0.1:53264 sending packet to /127.0.0.1:53267
+CSE473 DHTPv0.1
+type:success
+key:junk
+val:mail
+tag:12345
+ttl:96
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53269
+CSE473 DHTPv0.1
+type:get
+key:foo
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53261
+CSE473 DHTPv0.1
+type:get
+key:foo
+clientAdr:127.0.0.1:53269
+relayAdr:127.0.0.1:53264
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53261
+CSE473 DHTPv0.1
+type:success
+key:foo
+val:bar
+clientAdr:127.0.0.1:53269
+relayAdr:127.0.0.1:53264
+tag:12345
+senderInfo:127.0.0.1:53261:0
+ttl:97
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53269
+CSE473 DHTPv0.1
+type:success
+key:foo
+val:bar
+tag:12345
+ttl:97
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53274
+CSE473 DHTPv0.1
+type:get
+key:bar
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53263
+CSE473 DHTPv0.1
+type:get
+key:bar
+clientAdr:127.0.0.1:53274
+relayAdr:127.0.0.1:53264
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53262
+CSE473 DHTPv0.1
+type:no match
+key:bar
+clientAdr:127.0.0.1:53274
+relayAdr:127.0.0.1:53264
+tag:12345
+senderInfo:127.0.0.1:53262:1073741824
+ttl:96
+
+rteTbl=[(/127.0.0.1:53261,0), (/127.0.0.1:53262,1073741824)]
+/127.0.0.1:53264 sending packet to /127.0.0.1:53274
+CSE473 DHTPv0.1
+type:no match
+key:bar
+tag:12345
+ttl:96
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53277
+CSE473 DHTPv0.1
+type:get
+key:blue
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53262
+CSE473 DHTPv0.1
+type:get
+key:blue
+clientAdr:127.0.0.1:53277
+relayAdr:127.0.0.1:53264
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53262
+CSE473 DHTPv0.1
+type:success
+key:blue
+val:moose
+clientAdr:127.0.0.1:53277
+relayAdr:127.0.0.1:53264
+tag:12345
+senderInfo:127.0.0.1:53262:1073741824
+ttl:97
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53277
+CSE473 DHTPv0.1
+type:success
+key:blue
+val:moose
+tag:12345
+ttl:97
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53281
+CSE473 DHTPv0.1
+type:get
+key:blue
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53281
+CSE473 DHTPv0.1
+type:success
+key:blue
+val:moose
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 received packet from /127.0.0.1:53286
+CSE473 DHTPv0.1
+type:get
+key:foo
+tag:12345
+ttl:99
+
+/127.0.0.1:53264 sending packet to /127.0.0.1:53286
+CSE473 DHTPv0.1
+type:success
+key:foo
+val:bar
+tag:12345
+ttl:99
+

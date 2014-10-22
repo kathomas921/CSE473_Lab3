@@ -1,0 +1,553 @@
+/192.168.2.4:56443 sending packet to /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:100
+
+/192.168.2.4:56443 received packet from /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:success
+tag:1
+hashRange:1073741824:2147483647
+succInfo:192.168.7.1:39243:0
+predInfo:192.168.7.1:39243:0
+ttl:98
+
+rteTble=[(/192.168.7.1:39243,0)]
+/192.168.2.4:56443 received packet from /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:update
+tag:3
+predInfo:192.168.3.2:56842:536870912
+ttl:99
+
+/192.168.2.4:56443 received packet from /192.168.3.2:56842
+CSE473 DHTPv0.1
+type:update
+tag:2
+predInfo:192.168.2.5:49523:805306368
+ttl:99
+
+/192.168.2.4:56443 received packet from /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:success
+tag:1
+hashRange:1610612736:2147483647
+succInfo:192.168.7.1:39243:0
+predInfo:192.168.2.4:56443:1073741824
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:update
+tag:2
+predInfo:192.168.1.1:32877:1610612736
+ttl:100
+
+rteTbl=[(/192.168.1.1:32877,1610612736)]
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:put
+key:who
+val:hah
+clientAdr:192.168.4.2:34173
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:put
+key:who
+val:hah
+clientAdr:192.168.4.2:34173
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:who
+clientAdr:192.168.4.2:47933
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:get
+key:who
+clientAdr:192.168.4.2:47933
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:bar
+clientAdr:192.168.4.2:51104
+relayAdr:192.168.7.1:39243
+tag:12345
+ttl:96
+
+/192.168.2.4:56443 sending packet to /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:no match
+key:bar
+clientAdr:192.168.4.2:51104
+relayAdr:192.168.7.1:39243
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:96
+
+/192.168.2.4:56443 received packet from /192.168.4.2:37702
+CSE473 DHTPv0.1
+type:put
+key:foo
+val:toast
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:put
+key:foo
+val:toast
+clientAdr:192.168.4.2:37702
+relayAdr:192.168.2.4:56443
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 received packet from /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:success
+key:foo
+val:toast
+clientAdr:192.168.4.2:37702
+relayAdr:192.168.2.4:56443
+tag:12345
+senderInfo:192.168.7.1:39243:0
+ttl:95
+
+rteTbl=[(/192.168.1.1:32877,1610612736)]
+/192.168.2.4:56443 sending packet to /192.168.4.2:37702
+CSE473 DHTPv0.1
+type:success
+key:foo
+val:toast
+tag:12345
+ttl:95
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:foo
+clientAdr:192.168.4.2:43526
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:get
+key:foo
+clientAdr:192.168.4.2:43526
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:put
+key:flim
+val:flam
+clientAdr:192.168.4.2:43831
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 sending packet to /192.168.3.2:56842
+CSE473 DHTPv0.1
+type:success
+key:flim
+val:flam
+clientAdr:192.168.4.2:43831
+relayAdr:192.168.3.2:56842
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:97
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:put
+key:slim
+val:jim
+clientAdr:192.168.4.2:54058
+relayAdr:192.168.7.1:39243
+tag:12345
+ttl:96
+
+/192.168.2.4:56443 sending packet to /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:success
+key:slim
+val:jim
+clientAdr:192.168.4.2:54058
+relayAdr:192.168.7.1:39243
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:96
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:put
+key:abra
+val:cadabra
+clientAdr:192.168.4.2:58875
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:put
+key:abra
+val:cadabra
+clientAdr:192.168.4.2:58875
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 received packet from /192.168.4.2:48732
+CSE473 DHTPv0.1
+type:put
+key:chocolate
+val:fudge
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:put
+key:chocolate
+val:fudge
+clientAdr:192.168.4.2:48732
+relayAdr:192.168.2.4:56443
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 received packet from /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:success
+key:chocolate
+val:fudge
+clientAdr:192.168.4.2:48732
+relayAdr:192.168.2.4:56443
+tag:12345
+senderInfo:192.168.7.1:39243:0
+ttl:95
+
+rteTbl=[(/192.168.1.1:32877,1610612736)]
+/192.168.2.4:56443 sending packet to /192.168.4.2:48732
+CSE473 DHTPv0.1
+type:success
+key:chocolate
+val:fudge
+tag:12345
+ttl:95
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:put
+key:dungeons
+val:dragons
+clientAdr:192.168.4.2:48477
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 sending packet to /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:success
+key:dungeons
+val:dragons
+clientAdr:192.168.4.2:48477
+relayAdr:192.168.2.5:49523
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:98
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:put
+key:political
+val:follies
+clientAdr:192.168.4.2:42178
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 sending packet to /192.168.3.2:56842
+CSE473 DHTPv0.1
+type:success
+key:political
+val:follies
+clientAdr:192.168.4.2:42178
+relayAdr:192.168.3.2:56842
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:97
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:flim
+clientAdr:192.168.4.2:53686
+relayAdr:192.168.7.1:39243
+tag:12345
+ttl:96
+
+/192.168.2.4:56443 sending packet to /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:success
+key:flim
+val:flam
+clientAdr:192.168.4.2:53686
+relayAdr:192.168.7.1:39243
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:96
+
+/192.168.2.4:56443 received packet from /192.168.4.2:42753
+CSE473 DHTPv0.1
+type:get
+key:flip
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:get
+key:flip
+clientAdr:192.168.4.2:42753
+relayAdr:192.168.2.4:56443
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 received packet from /192.168.7.1:39243
+CSE473 DHTPv0.1
+type:success
+key:flip
+val:flop
+clientAdr:192.168.4.2:42753
+relayAdr:192.168.2.4:56443
+tag:12345
+senderInfo:192.168.7.1:39243:0
+ttl:95
+
+rteTbl=[(/192.168.1.1:32877,1610612736)]
+/192.168.2.4:56443 sending packet to /192.168.4.2:42753
+CSE473 DHTPv0.1
+type:success
+key:flip
+val:flop
+tag:12345
+ttl:95
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:slim
+clientAdr:192.168.4.2:33073
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 sending packet to /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:success
+key:slim
+val:jim
+clientAdr:192.168.4.2:33073
+relayAdr:192.168.2.5:49523
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:98
+
+/192.168.2.4:56443 received packet from /192.168.4.2:50266
+CSE473 DHTPv0.1
+type:get
+key:dungeons
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.4.2:50266
+CSE473 DHTPv0.1
+type:success
+key:dungeons
+val:dragons
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:political
+clientAdr:192.168.4.2:46544
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 sending packet to /192.168.3.2:56842
+CSE473 DHTPv0.1
+type:success
+key:political
+val:follies
+clientAdr:192.168.4.2:46544
+relayAdr:192.168.3.2:56842
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:97
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:fantasy
+clientAdr:192.168.4.2:37334
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:get
+key:fantasy
+clientAdr:192.168.4.2:37334
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 received packet from /192.168.2.3:35973
+CSE473 DHTPv0.1
+type:join
+tag:1
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.2.3:35973
+CSE473 DHTPv0.1
+type:success
+tag:1
+hashRange:1342177280:1610612735
+succInfo:192.168.1.1:32877:1610612736
+predInfo:192.168.2.4:56443:1073741824
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:update
+tag:3
+predInfo:192.168.2.3:35973:1342177280
+ttl:100
+
+rteTbl=[(/192.168.2.3:35973,1342177280)]
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:flim
+clientAdr:192.168.4.2:38856
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 sending packet to /192.168.3.2:56842
+CSE473 DHTPv0.1
+type:success
+key:flim
+val:flam
+clientAdr:192.168.4.2:38856
+relayAdr:192.168.3.2:56842
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:97
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:slim
+clientAdr:192.168.4.2:40619
+relayAdr:192.168.1.1:32877
+tag:12345
+ttl:93
+
+/192.168.2.4:56443 sending packet to /192.168.1.1:32877
+CSE473 DHTPv0.1
+type:success
+key:slim
+val:jim
+clientAdr:192.168.4.2:40619
+relayAdr:192.168.1.1:32877
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:93
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:dungeons
+clientAdr:192.168.4.2:35420
+relayAdr:192.168.2.5:49523
+tag:12345
+ttl:98
+
+/192.168.2.4:56443 sending packet to /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:success
+key:dungeons
+val:dragons
+clientAdr:192.168.4.2:35420
+relayAdr:192.168.2.5:49523
+tag:12345
+senderInfo:192.168.2.4:56443:1073741824
+ttl:98
+
+/192.168.2.4:56443 received packet from /192.168.4.2:40539
+CSE473 DHTPv0.1
+type:get
+key:political
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 sending packet to /192.168.4.2:40539
+CSE473 DHTPv0.1
+type:success
+key:political
+val:follies
+tag:12345
+ttl:99
+
+/192.168.2.4:56443 received packet from /192.168.2.5:49523
+CSE473 DHTPv0.1
+type:get
+key:fantasy
+clientAdr:192.168.4.2:58891
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+
+/192.168.2.4:56443 sending packet to /192.168.2.3:35973
+CSE473 DHTPv0.1
+type:get
+key:fantasy
+clientAdr:192.168.4.2:58891
+relayAdr:192.168.3.2:56842
+tag:12345
+ttl:97
+

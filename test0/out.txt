@@ -1,9 +1,0 @@
-put foo bar
-put who hah
-get foo
-get who
-get goodbye
-get
-get bar
-put foo toast is tasty
-get foo

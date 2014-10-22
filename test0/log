@@ -1,134 +1,134 @@
-/127.0.0.1:62490 received packet from /127.0.0.1:56844
+/127.0.0.1:62713 received packet from /127.0.0.1:62714
 CSE473 DHTPv0.1
 type:put
 key:foo
 val:bar
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:56844
+/127.0.0.1:62713 sending packet to /127.0.0.1:62714
 CSE473 DHTPv0.1
 type:success
 key:foo
 val:bar
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:64177
+/127.0.0.1:62713 received packet from /127.0.0.1:62715
 CSE473 DHTPv0.1
 type:put
 key:who
 val:hah
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:64177
+/127.0.0.1:62713 sending packet to /127.0.0.1:62715
 CSE473 DHTPv0.1
 type:success
 key:who
 val:hah
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:55433
+/127.0.0.1:62713 received packet from /127.0.0.1:62716
 CSE473 DHTPv0.1
 type:get
 key:foo
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:55433
+/127.0.0.1:62713 sending packet to /127.0.0.1:62716
 CSE473 DHTPv0.1
 type:success
 key:foo
 val:bar
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:49920
+/127.0.0.1:62713 received packet from /127.0.0.1:62717
 CSE473 DHTPv0.1
 type:get
 key:who
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:49920
+/127.0.0.1:62713 sending packet to /127.0.0.1:62717
 CSE473 DHTPv0.1
 type:success
 key:who
 val:hah
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:50591
+/127.0.0.1:62713 received packet from /127.0.0.1:62718
 CSE473 DHTPv0.1
 type:get
 key:goodbye
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:50591
+/127.0.0.1:62713 sending packet to /127.0.0.1:62718
 CSE473 DHTPv0.1
 type:no match
 key:goodbye
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:53281
+/127.0.0.1:62713 received packet from /127.0.0.1:62719
 CSE473 DHTPv0.1
 type:get
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:53281
+/127.0.0.1:62713 sending packet to /127.0.0.1:62719
 CSE473 DHTPv0.1
 type:failure
 reason:gets and puts require key and tag
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:61757
+/127.0.0.1:62713 received packet from /127.0.0.1:62720
 CSE473 DHTPv0.1
 type:get
 key:bar
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:61757
+/127.0.0.1:62713 sending packet to /127.0.0.1:62720
 CSE473 DHTPv0.1
 type:no match
 key:bar
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:62275
+/127.0.0.1:62713 received packet from /127.0.0.1:62721
 CSE473 DHTPv0.1
 type:put
 key:foo
 val:toast is tasty
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:62275
+/127.0.0.1:62713 sending packet to /127.0.0.1:62721
 CSE473 DHTPv0.1
 type:success
 key:foo
 val:toast is tasty
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 received packet from /127.0.0.1:55108
+/127.0.0.1:62713 received packet from /127.0.0.1:62722
 CSE473 DHTPv0.1
 type:get
 key:foo
-tag:1
+tag:12345
 ttl:99
 
-/127.0.0.1:62490 sending packet to /127.0.0.1:55108
+/127.0.0.1:62713 sending packet to /127.0.0.1:62722
 CSE473 DHTPv0.1
 type:success
 key:foo
 val:toast is tasty
-tag:1
+tag:12345
 ttl:99
 
